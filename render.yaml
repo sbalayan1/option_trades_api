@@ -5,7 +5,7 @@ databases:
 
 services:
   - type: web
-    name: mysite
+    name: portfolio
     env: ruby
     buildCommand: "./bin/portfolio-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
