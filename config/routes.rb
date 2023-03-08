@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # get 'option_trades/update,'
   # get 'option_trades/destroy'
 
+
+  # get '/option_trades', to: 'option_trades#index'
+  get '/', to 'option_trades#index'
+  
   scope '/api' do
     resources :option_trades, only: [:index, :show, :create, :update, :destroy]
   end

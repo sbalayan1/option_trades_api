@@ -23,9 +23,6 @@ OptionTrade.destroy_all()
 
 puts 'Seeding database!!!!'
 
-
-
-OptionTrade.create(ticker: 'AAPL', buy_date: create_date(3, 7, 2023), sell_date: create_date(3, 8, 2023), strike: 150, option_type: 'PUTS', expiration_date: create_date(3, 10, 2023), 
-quantity: 1, buy_price: 96, sell_price: 120)
+OptionTrade.create(ticker: 'AAPL', buy_date: create_date(3, 7, 2023), sell_date: create_date(3, 8, 2023), strike: 150, option_type: 'PUTS', expiration_date: create_date(3, 10, 2023), quantity: 1, buy_price: 96, sell_price: 120)
 
 puts "Done seeding!"

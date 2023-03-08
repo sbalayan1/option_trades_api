@@ -1,6 +1,8 @@
 class OptionTradesController < ApplicationController
-  # def index
-  # end
+  def index
+    options = OptionTrade.all()
+    render json: options
+  end
 
   # def show,
   # end
