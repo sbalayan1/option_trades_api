@@ -1,69 +1,32 @@
 require "test_helper"
 require 'faker'
-require_relative '../../helper_functions'
-
-puts('clearing database')
-OptionTrade.destroy_all()
-
+require 'pry'
 
 class OptionTradeTest < ActiveSupport::TestCase
-  stock = Faker::Finance.ticker
+  # include ActiveModel::Validations
 
-  test 'test database should not be empty' do
-    # OptionTrade.new(
-    #   ticker: stock, 
-    #   buy_date: create_date(3,3,2023), 
-    #   sell_date: create_date(3,3,2023), 
-    #   strike: 100, 
-    #   option_type:"CALLS", 
-    #   expiration_date: create_date(3,10,2023),
-    #   quantity: 1,
-    #   buy_price: 100,
-    #   sell_price: 100
-    # ) 
-    assert_not_empty OptionTrade.all(), "Database is empty"
+  stock = Faker::Finance.ticker
+  test 'class ensures instances are initialized WITH arguemnts BEFORE validations' do
   end
 
-  # test 'OptionTrades throws ArgumentError when initialized with no arguments or missing arguments' do
-  #   # assert_not OptionTrade.new
-  #   assert_raises(ArgumentError, "This should raise an ArgumentError") do
-  #     OptionTrade.new
-  #   end
 
-  #   assert_raises(ArgumentError, "This should raise an ArgumentError") do
-  #     OptionTrade.new(
-  #       ticker: stock, 
-  #       buy_date: create_date(3,3,2023), 
-  #       sell_date: create_date(3,3,2023), 
-  #       strike: 100, 
-  #       option_type:"CALLS", 
-  #       expiration_date: create_date(3,10,2023),
-  #       quantity: 1,
-  #       buy_price: 100,
-  #     )
-  #   end
-  # end
+  test 'class cannot be initialized without arguments and raises StrictValidationFailed exception when initialized with missing or no arguments' do
+    # invalid_trade = OptionTrade.new
+    # assert invalid_trade.valid? == ActiveModel::StrictValidationFailed, "class does not invalidate initialization with missing or no arguments"
+    
+    assert_raises(ActiveModel::StrictValidationFailed, "class does not raise a StrictValidationFailed exception") {
+      OptionTrade.create()
+    }
+  end
 
-  # test 'Create/New methods do not throw an errors' do
-  #   trade = OptionTrade.new(
-  #     ticker: stock, 
-  #     buy_date: create_date(3,3,2023), 
-  #     sell_date: create_date(3,3,2023), 
-  #     strike: 100, 
-  #     option_type:"CALLS", 
-  #     expiration_date: create_date(3,10,2023),
-  #     quantity: 1,
-  #     buy_price: 100,
-  #     sell_price: 100
-  #   )
-  
-
-  #   assert_instance_of(OptionTrade, trade, msg="The new instance is not an instance of the ObjectTrade class")
-  # end
+  test 'Initialization with the correct arguments and types creates an isntance of the OptionTrade class' do
+    good_trade = option_trades(:one)
+    assert_instance_of OptionTrade, good_trade, "The good instance is not an instance of the ObjectTrade class"
+  end
 
 
 
-  # test "should not save option trade with missing values" do
+  # test "initializing an option trade with missing arguments should thrown error" do
   #   option_trade = OptionTrade.new(
   #     ticker: stock, 
   #     buy_date: create_date(3,3,2023), 
@@ -91,3 +54,5 @@ class OptionTradeTest < ActiveSupport::TestCase
   # end
 
 end
+
+

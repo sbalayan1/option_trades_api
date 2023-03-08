@@ -4,8 +4,25 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+
+one:
+  ticker: AAPL
+  buy_date: 2023-03-05
+  sell_date: 2023-03-07
+  strike: 140
+  option_type: CALLS
+  expiration_date: 2023-03-10
+  quantity: 1
+  buy_price: 100
+  sell_price: 100
+
+two: 
+  ticker: AAPL
+  buy_date: 2023-03-05
+  sell_date: 2023-03-07
+  strike: 140
+  option_type: CALLS
+  expiration_date: 2023-03-10
+  quantity: 1
+
+

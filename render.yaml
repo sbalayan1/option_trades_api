@@ -15,4 +15,4 @@ services:
           name: portfolio
           property: connectionString
       - key: RAILS_MASTER_KEY
-        sync: false
+        sync: false 
