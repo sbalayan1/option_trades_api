@@ -14,7 +14,6 @@ class OptionTradesController < ApplicationController
     @option = OptionTrade.create!(option_trade_params)
     return redirect_to @option, status: :ok if @option
     render json: {errors: ["Could not create new option trade!"]}, status: :unprocessable_entity
-
   end
 
   def update
