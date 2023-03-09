@@ -18,62 +18,44 @@ class OptionTradeTest < ActiveSupport::TestCase
   stock = Faker::Finance.ticker
 
   test 'class cannot be initialized without arguments and raises StrictValidationFailed exception when initialized with missing or no arguments' do
-    assert_raises(ActiveModel::StrictValidationFailed, "does not raise a StrictValidationFailed exception when instantiating with .new()") {
+    assert_raises(ActiveModel::StrictValidationFailed, "does not raise exception when instantiating with .new()") {
       OptionTrade.new()
     }
-
     
-    assert_raises(ActiveModel::StrictValidationFailed, "does not raise a StrictValidationFailed exception when instantiating with .create()") {
+    assert_raises(ActiveModel::StrictValidationFailed, "does not raise exception when instantiating with .create()") {
       OptionTrade.create()
     }
   end
 
-  test 'Initialization with the correct arguments and types creates an instance of the OptionTrade class' do
+  test 'new instance of OptionTrade class' do
     good_trade = option_trades(:one)
     assert_instance_of OptionTrade, good_trade, "The good instance is not an instance of the ObjectTrade class"
   end
 
   test "class cannot be initialized with a sell_date or expiration_date that is less than the buy date and raises StrictValidationFailed exception" do
-    assert_raises(ActiveModel::StrictValidationFailed, "does not raise a StrictValidationFailed exception when instantiated with .create() and sell dates that are less than the buy_date") {
+    assert_raises(ActiveModel::StrictValidationFailed, "\ndoes not raise a exception. sell dates are less than the buy_date") {
       args[:sell_date] = create_date(3,1,2023)
       OptionTrade.create(**args)
     }
 
-    assert_raises(ActiveModel::StrictValidationFailed, "does not raise a StrictValidationFailed exception when instantiated with .create() and expiration dates that are less than the buy_date") {
+    assert_raises(ActiveModel::StrictValidationFailed, "\ndoes not raise exception. expiration dates are less than the buy_date") {
       args[:expiration_date] = create_date(3,1,2023)
       OptionTrade.create(**args)
     }
     
   end
 
+  test "class cannot be initialized with an expiration_date that is less than the sell_date and raises StrictValidationFailed exception" do
+    assert_raises(ActiveModel::StrictValidationFailed, "\ndoes not raise exception. expiration date is less than sell date") {
 
+      #user buys an option that expires on the same day. They should not be able to sell it any later
+      args[:buy_date] = create_date(2,10,2023)
+      args[:sell_date] = create_date(3,1,2023)
+      args[:expiration_date] = create_date(2,10,2023)
 
-  # test "initializing an option trade with missing arguments should thrown error" do
-  #   option_trade = OptionTrade.new(
-  #     ticker: stock, 
-  #     buy_date: create_date(3,3,2023), 
-  #     sell_date: create_date(3,3,2023), 
-  #     strike: 100, 
-  #     option_type:"CALLS", 
-  #     expiration_date: create_date(3,10,2023),
-  #     quantity: 1,
-  #     buy_price: 100)
-    
-  #   errors = option_trade.errors
-  #   puts errors
-  #   assert_not option_trade.save, "Saved option with missing value"
-  # end
-
-  # test "able to save option trade with appropriate data" do
-  # end
-
-
-  # test "buy date should be less than or equal to sell date" do
-
-  # end
-
-  # test "expiration_date should be greater than or equal to buy_date" do
-  # end
+      OptionTrade.create!(**args)
+    }
+  end
 
 end
 
