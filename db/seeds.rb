@@ -19,7 +19,7 @@ require_relative "../helper_functions"
 # t.float :sell_price, :null => false
 
 puts "Clearing database"
-OptionTrade.destroy_all()
+# OptionTrade.destroy_all()
 
 puts 'Seeding database!!!!'
 
